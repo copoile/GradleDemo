@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.InventoryDoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.mapper.dao.InventoryDo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="medicine_id" property="medicineId" jdbcType="BIGINT" />
+    <result column="medicine_name" property="medicineName" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="limited" property="limited" jdbcType="VARCHAR" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="manufacturer_id" property="manufacturerId" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, medicine_id, medicine_name, number, limited, batch_number, manufacturer_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.mapper.dao.InventoryDoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from inventory
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.mapper.dao.InventoryDoExample" >
+    delete from inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.mapper.dao.InventoryDo" useGeneratedKeys="true" keyProperty="id" >
+    insert into inventory (medicine_id, medicine_name, number, 
+      limited, batch_number, manufacturer_id
+      )
+    values (#{medicineId,jdbcType=BIGINT}, #{medicineName,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{limited,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}, #{manufacturerId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.mapper.dao.InventoryDo" useGeneratedKeys="true" keyProperty="id" >
+    insert into inventory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicineId != null" >
+        medicine_id,
+      </if>
+      <if test="medicineName != null" >
+        medicine_name,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="limited != null" >
+        limited,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicineId != null" >
+        #{medicineId,jdbcType=BIGINT},
+      </if>
+      <if test="medicineName != null" >
+        #{medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="limited != null" >
+        #{limited,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        #{manufacturerId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.mapper.dao.InventoryDoExample" resultType="java.lang.Integer" >
+    select count(*) from inventory
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update inventory
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.medicineId != null" >
+        medicine_id = #{record.medicineId,jdbcType=BIGINT},
+      </if>
+      <if test="record.medicineName != null" >
+        medicine_name = #{record.medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.limited != null" >
+        limited = #{record.limited,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNumber != null" >
+        batch_number = #{record.batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturerId != null" >
+        manufacturer_id = #{record.manufacturerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update inventory
+    set id = #{record.id,jdbcType=BIGINT},
+      medicine_id = #{record.medicineId,jdbcType=BIGINT},
+      medicine_name = #{record.medicineName,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      limited = #{record.limited,jdbcType=VARCHAR},
+      batch_number = #{record.batchNumber,jdbcType=VARCHAR},
+      manufacturer_id = #{record.manufacturerId,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mapper.dao.InventoryDo" >
+    update inventory
+    <set >
+      <if test="medicineId != null" >
+        medicine_id = #{medicineId,jdbcType=BIGINT},
+      </if>
+      <if test="medicineName != null" >
+        medicine_name = #{medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="limited != null" >
+        limited = #{limited,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id = #{manufacturerId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mapper.dao.InventoryDo" >
+    update inventory
+    set medicine_id = #{medicineId,jdbcType=BIGINT},
+      medicine_name = #{medicineName,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      limited = #{limited,jdbcType=VARCHAR},
+      batch_number = #{batchNumber,jdbcType=VARCHAR},
+      manufacturer_id = #{manufacturerId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+   <select id="inventoryInfoQueryCount" resultType="int">
+	select count(*) from inventory where  1 = 1
+		<if test="medicineId!=null and medicineId!=''">
+			and medicine_id = #{medicineId}
+		</if>
+		<if test="medicineName!=null and medicineName!=''">
+			and medicine_name like  CONCAT(CONCAT('%', #{medicineName}), '%')
+		</if>
+		<if test="inputTime!=null and inputTime!='' ">
+			and medicine_id  = (SELECT medicine_id FROM proin WHERE proin.inputTime=#{inputTime})
+		</if>
+	</select>
+	
+	<select id="inventoryInfoQuery" resultMap="BaseResultMap">
+	select * from inventory where  1 = 1
+		<if test="medicineId!=null and medicineId!=''">
+			and medicine_id = #{medicineId}
+		</if>
+		<if test="medicineName!=null and medicineName!=''">
+			and medicine_name like  CONCAT(CONCAT('%', #{medicineName}), '%')
+		</if>
+		<if test="inputTime!=null and inputTime!='' ">
+			and medicine_id = (SELECT medicine_id FROM proin WHERE proin.inputTime=#{inputTime})
+		</if>
+		 limit #{limit} offset #{offset}
+	</select>
+  
+</mapper>

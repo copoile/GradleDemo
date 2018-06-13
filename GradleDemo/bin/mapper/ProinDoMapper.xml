@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.ProinDoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.mapper.dao.ProinDo" >
+    <id column="medicine_id" property="medicineId" jdbcType="BIGINT" />
+    <result column="medicine_name" property="medicineName" jdbcType="VARCHAR" />
+    <result column="specification" property="specification" jdbcType="VARCHAR" />
+    <result column="limited" property="limited" jdbcType="VARCHAR" />
+    <result column="produced_date" property="producedDate" jdbcType="VARCHAR" />
+    <result column="packaging" property="packaging" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="batch_number" property="batchNumber" jdbcType="VARCHAR" />
+    <result column="unit_price" property="unitPrice" jdbcType="DOUBLE" />
+    <result column="retail_price" property="retailPrice" jdbcType="DOUBLE" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="inputTime" property="inputtime" jdbcType="VARCHAR" />
+    <result column="manufacturer_id" property="manufacturerId" jdbcType="BIGINT" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    medicine_id, medicine_name, specification, limited, produced_date, packaging, type, 
+    batch_number, unit_price, retail_price, unit, remark, inputTime, manufacturer_id, 
+    number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.mapper.dao.ProinDoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from proin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from proin
+    where medicine_id = #{medicineId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from proin
+    where medicine_id = #{medicineId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.mapper.dao.ProinDoExample" >
+    delete from proin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.mapper.dao.ProinDo" >
+    insert into proin (medicine_id, medicine_name, specification, 
+      limited, produced_date, packaging, 
+      type, batch_number, unit_price, 
+      retail_price, unit, remark, 
+      inputTime, manufacturer_id, number
+      )
+    values (#{medicineId,jdbcType=BIGINT}, #{medicineName,jdbcType=VARCHAR}, #{specification,jdbcType=VARCHAR}, 
+      #{limited,jdbcType=VARCHAR}, #{producedDate,jdbcType=VARCHAR}, #{packaging,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{batchNumber,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DOUBLE}, 
+      #{retailPrice,jdbcType=DOUBLE}, #{unit,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{inputtime,jdbcType=VARCHAR}, #{manufacturerId,jdbcType=BIGINT}, #{number,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="medicineId" >
+    insert into proin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="medicineId != null" >
+        medicine_id,
+      </if>
+      <if test="medicineName != null" >
+        medicine_name,
+      </if>
+      <if test="specification != null" >
+        specification,
+      </if>
+      <if test="limited != null" >
+        limited,
+      </if>
+      <if test="producedDate != null" >
+        produced_date,
+      </if>
+      <if test="packaging != null" >
+        packaging,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="batchNumber != null" >
+        batch_number,
+      </if>
+      <if test="unitPrice != null" >
+        unit_price,
+      </if>
+      <if test="retailPrice != null" >
+        retail_price,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="inputtime != null" >
+        inputTime,
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="medicineId != null" >
+        #{medicineId,jdbcType=BIGINT},
+      </if>
+      <if test="medicineName != null" >
+        #{medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="limited != null" >
+        #{limited,jdbcType=VARCHAR},
+      </if>
+      <if test="producedDate != null" >
+        #{producedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="packaging != null" >
+        #{packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="retailPrice != null" >
+        #{retailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null" >
+        #{inputtime,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        #{manufacturerId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.mapper.dao.ProinDoExample" resultType="java.lang.Integer" >
+    select count(*) from proin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update proin
+    <set >
+      <if test="record.medicineId != null" >
+        medicine_id = #{record.medicineId,jdbcType=BIGINT},
+      </if>
+      <if test="record.medicineName != null" >
+        medicine_name = #{record.medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specification != null" >
+        specification = #{record.specification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limited != null" >
+        limited = #{record.limited,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producedDate != null" >
+        produced_date = #{record.producedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.packaging != null" >
+        packaging = #{record.packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchNumber != null" >
+        batch_number = #{record.batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitPrice != null" >
+        unit_price = #{record.unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.retailPrice != null" >
+        retail_price = #{record.retailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inputtime != null" >
+        inputTime = #{record.inputtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manufacturerId != null" >
+        manufacturer_id = #{record.manufacturerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update proin
+    set medicine_id = #{record.medicineId,jdbcType=BIGINT},
+      medicine_name = #{record.medicineName,jdbcType=VARCHAR},
+      specification = #{record.specification,jdbcType=VARCHAR},
+      limited = #{record.limited,jdbcType=VARCHAR},
+      produced_date = #{record.producedDate,jdbcType=VARCHAR},
+      packaging = #{record.packaging,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      batch_number = #{record.batchNumber,jdbcType=VARCHAR},
+      unit_price = #{record.unitPrice,jdbcType=DOUBLE},
+      retail_price = #{record.retailPrice,jdbcType=DOUBLE},
+      unit = #{record.unit,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      inputTime = #{record.inputtime,jdbcType=VARCHAR},
+      manufacturer_id = #{record.manufacturerId,jdbcType=BIGINT},
+      number = #{record.number,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.mapper.dao.ProinDo" >
+    update proin
+    <set >
+      <if test="medicineName != null" >
+        medicine_name = #{medicineName,jdbcType=VARCHAR},
+      </if>
+      <if test="specification != null" >
+        specification = #{specification,jdbcType=VARCHAR},
+      </if>
+      <if test="limited != null" >
+        limited = #{limited,jdbcType=VARCHAR},
+      </if>
+      <if test="producedDate != null" >
+        produced_date = #{producedDate,jdbcType=VARCHAR},
+      </if>
+      <if test="packaging != null" >
+        packaging = #{packaging,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNumber != null" >
+        batch_number = #{batchNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null" >
+        unit_price = #{unitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="retailPrice != null" >
+        retail_price = #{retailPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="inputtime != null" >
+        inputTime = #{inputtime,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturerId != null" >
+        manufacturer_id = #{manufacturerId,jdbcType=BIGINT},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+    </set>
+    where medicine_id = #{medicineId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.mapper.dao.ProinDo" >
+    update proin
+    set medicine_name = #{medicineName,jdbcType=VARCHAR},
+      specification = #{specification,jdbcType=VARCHAR},
+      limited = #{limited,jdbcType=VARCHAR},
+      produced_date = #{producedDate,jdbcType=VARCHAR},
+      packaging = #{packaging,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      batch_number = #{batchNumber,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DOUBLE},
+      retail_price = #{retailPrice,jdbcType=DOUBLE},
+      unit = #{unit,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      inputTime = #{inputtime,jdbcType=VARCHAR},
+      manufacturer_id = #{manufacturerId,jdbcType=BIGINT},
+      number = #{number,jdbcType=INTEGER}
+    where medicine_id = #{medicineId,jdbcType=BIGINT}
+  </update>
+  
+  
+	<select id="inputInfoQueryCount" resultType="int">
+	select count(*) from proin where  1 = 1
+		<if test="medicineId!=null and medicineId!=''">
+			and medicine_id = #{medicineId}
+		</if>
+		<if test="medicineName!=null and medicineName!=''">
+			and medicine_name like  CONCAT(CONCAT('%', #{medicineName}), '%')
+		</if>
+		<if test="inputtime!=null and inputtime!='' ">
+			and inputTime =#{inputtime}
+		</if>
+	</select>
+	
+	<select id="inputInfoQuery" resultMap="BaseResultMap">
+	select * from proin where  1 = 1
+		<if test="medicineId!=null and medicineId!=''">
+			and medicine_id = #{medicineId}
+		</if>
+		<if test="medicineName!=null and medicineName!=''">
+			and medicine_name like  CONCAT(CONCAT('%', #{medicineName}), '%')
+		</if>
+		<if test="inputtime!=null and inputtime!='' ">
+			and inputTime =#{inputtime}
+		</if>
+		 limit #{limit} offset #{offset}
+	</select>
+  
+  
+  
+</mapper>

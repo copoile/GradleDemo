@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+.enter, .output {
+	height: auto;
+	text-align: center;
+	left: 30%;
+	top: 20%;
+	position: absolute;
+}
+
+.enter-table, .output-table {
+	width: 500px;
+	height: auto;
+	text-align: center;
+	position: static;
+}
+
+.enter-table tbody, .output-table tbody {
+	font-size: 22px;
+	line-height: 2.722;
+	color: #272727;
+}
+
+.enter td, th, .output td, th {
+	border: double mediumaquamarine;
+}
+
+.enter-table td:first-child {
+	width: 165px;
+}
+
+.output-table td:first-child {
+	width: 165px;
+}
+
+.enter-title, .output-title {
+	font-size: 30px;
+	line-height: 1.72222;
+	color: #34495e;
+	text-align: center;
+	top: 5%;
+	position: absolute;
+	width: 100%;
+	margin-block-end: 10%;
+}
+
+.enter-table input, .output-table input{
+	border-color: #e1e1f3;
+	border-style: ridge;
+	height: 52px;
+}
+
+.enter-table tfoot .buttom, .output-table tfoot .buttom {
+	border-radius: 4px;
+	color: #fff;
+	background-color: #1abc9c;
+	width: 112px;
+	font-size: larger;
+}
+
+.enter-table tfoot .buttom {
+	border-radius: 4px;
+	color: #fff;
+	background-color: #1abc9c;
+	width: 112px;
+	font-size: larger;
+}
+.notice {
+    color: #f60b24;
+    margin: 93px 402px;
+    font-size: larger;
+}

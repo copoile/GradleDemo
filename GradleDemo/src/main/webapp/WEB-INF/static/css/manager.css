@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+.manager {
+	height: auto;
+	text-align: center;
+	left: 30%;
+	top: 20%;
+	position: absolute;
+}
+
+.maneger-table {
+	width: 500px;
+	height: auto;
+	text-align: center;
+	/* left: 30%;
+	top: 20%; */
+	position: static;
+}
+
+.maneger-table tbody {
+	font-size: 22px;
+	line-height: 2.722;
+	color: #272727;
+}
+
+.manager td, th {
+	border: double mediumaquamarine;
+}
+
+.maneger-table td:first-child {
+	width: 165px;
+}
+
+.manager-title {
+	font-size: 30px;
+	line-height: 1.72222;
+	color: #34495e;
+	text-align: center;
+	top: 5%;
+	position: absolute;
+	width: 100%;
+	margin-block-end: 10%;
+}
+
+.maneger-table input {
+	border-color: #e1e1f3;
+	border-style: ridge;
+	height: 52px;
+}
+
+.maneger-table tfoot .buttom {
+	border-radius: 4px;
+	color: #fff;
+	background-color: #1abc9c;
+	width: 112px;
+	font-size: larger;
+}
